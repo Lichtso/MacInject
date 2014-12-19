@@ -4,11 +4,12 @@
  License: http://opensource.org/licenses/mit
  */
 
-#include "Internals.h"
+#include "MacInject.h"
 #include <mach-o/loader.h>
 #include <sys/sysctl.h>
-#include <unistd.h>
 #include <dlfcn.h>
+
+#define CONST_STR(name) #name
 
 #define iterateSegmentsBegin(image) { \
     struct load_command* command = (struct load_command*)((uint8_t*)image->fMachOData + sizeof(struct mach_header_64)); \
@@ -36,9 +37,8 @@
     info.image##Entry += info.image; \
 }
 
-bool injectPayloadIntoTarget(const char* injectionPath, const char* payloadPath, const char* payloadEntry, mach_port_t target, bool syncWithMainEventLoop) {
-    uint32_t totalSize = 0, injectionSize = 0, payloadSize = 0,
-             systemStackSize = 2048, userStackSize = 2048, infoSize = 4096;
+bool injectPayloadIntoTarget(const char* injectionPath, const char* payloadPath, const char* payloadEntry, mach_port_t target) {
+    uint32_t totalSize = 0, infoSize = 4096, redzoneSize = 512, stackSize = 3584, injectionSize = 0, payloadSize = 0;
     
     // Load images
     struct ImageLoader* injection = CastToImageLoader(dlopen(injectionPath, RTLD_NOW));
@@ -54,9 +54,10 @@ bool injectPayloadIntoTarget(const char* injectionPath, const char* payloadPath,
     
     // Initialize info
     struct InjectionInfo info;
+    info.info = 0;
     info.receivePort = MACH_PORT_NULL;
     info.semaphore = MACH_PORT_NULL;
-    info.syncWithMainEventLoop = syncWithMainEventLoop;
+    info.keepPayload = false;
     info.injection = info.payload = (vm_address_t)NULL;
     info.injectionEntry = (uintptr_t)dlsym(injection, CONST_STR(injectionEntry));
     if(!info.injectionEntry) {
@@ -68,11 +69,12 @@ bool injectPayloadIntoTarget(const char* injectionPath, const char* payloadPath,
         fprintf(stderr, "Could not find payload entry point: %s\n", payloadEntry);
         goto CleanUp;
     }
+    info.shouldSyncWithMainEventLoop = (uintptr_t)dlsym(payload, "shouldSyncWithMainEventLoop");
     
     // Calculate memory size
     calculateSegmentsSize(injection)
     calculateSegmentsSize(payload)
-    totalSize = injectionSize + payloadSize + systemStackSize + userStackSize + infoSize;
+    totalSize = infoSize + redzoneSize + stackSize + injectionSize + payloadSize;
     
     // Create Semaphore
     mach_port_t sendPort = 0;
@@ -108,24 +110,24 @@ bool injectPayloadIntoTarget(const char* injectionPath, const char* payloadPath,
     }
     
     // Allocate remote memory
-    err = vm_allocate(target, &info.injection, totalSize, 1);
+    err = vm_allocate(target, &info.info, totalSize, 1);
     checkError("vm_allocate")
     
     // Calculate remote memory addresses
+    info.redzone = info.info + infoSize;
+    info.stack = info.redzone + redzoneSize;
+    info.injection = info.stack + stackSize;
     info.payload = info.injection + injectionSize;
-    info.systemStack = info.payload + payloadSize;
-    info.userStack = info.systemStack + systemStackSize;
-    info.info = info.userStack + userStackSize;
     calculateAddress(injection)
     calculateAddress(payload)
     
     // Copy data into remote memory
+    err = vm_write(target, info.info, (pointer_t)&info, sizeof(info));
+    checkError("vm_write info")
     err = vm_write(target, info.injection, (pointer_t)injection->fMachOData, injectionSize);
     checkError("vm_write injection")
     err = vm_write(target, info.payload, (pointer_t)payload->fMachOData, payloadSize);
     checkError("vm_write payload")
-    err = vm_write(target, info.info, (pointer_t)&info, sizeof(info));
-    checkError("vm_write info")
     
     // Protect remote memory
     protectSegments(injection)
@@ -142,7 +144,7 @@ bool injectPayloadIntoTarget(const char* injectionPath, const char* payloadPath,
         bzero(&threadState, sizeof(threadState));
         threadState.__rdi = (uint64_t)info.info;
         threadState.__rip = (uint64_t)info.injectionEntry;
-        threadState.__rsp = (uint64_t)info.userStack;
+        threadState.__rsp = (uint64_t)info.stack;
         
         thread_act_t thread;
         err = thread_create_running(target, x86_THREAD_STATE64,
@@ -164,7 +166,7 @@ bool injectPayloadIntoTarget(const char* injectionPath, const char* payloadPath,
     CleanUp:
     if(injection) dlclose(injection);
     if(payload) dlclose(payload);
-    if(info.injection) vm_deallocate(target, info.injection, totalSize);
+    if(info.info) vm_deallocate(target, info.info, (info.keepPayload) ? totalSize - payloadSize : totalSize);
     if(localSemaphore) semaphore_destroy(mach_task_self(), localSemaphore);
     if(sendPort) mach_port_destroy(mach_task_self(), sendPort);
     if(info.receivePort) mach_port_destroy(target, info.receivePort);

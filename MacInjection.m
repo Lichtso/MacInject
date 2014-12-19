@@ -4,7 +4,7 @@
  License: http://opensource.org/licenses/mit
  */
 
-#include "Internals.h"
+#include "MacInject.h"
 #include <Carbon/Carbon.h>
 #include <pthread.h>
 #include <syslog.h>
@@ -32,7 +32,8 @@ static void EventLoopTimerEntry(EventLoopTimerRef inTimer, struct InjectionInfo*
 }
 
 static void* pthread_entry(struct InjectionInfo* info) {
-    if(info->syncWithMainEventLoop)
+    if(info->shouldSyncWithMainEventLoop &&
+       ((bool(*)(struct InjectionInfo* info))info->shouldSyncWithMainEventLoop)(info))
         InstallEventLoopTimer(GetMainEventLoop(), 0, 0, (EventLoopTimerUPP)EventLoopTimerEntry, (void*)info, NULL);
     else
         EventLoopTimerEntry(NULL, info);
@@ -42,7 +43,7 @@ static void* pthread_entry(struct InjectionInfo* info) {
 
 void injectionEntry(struct InjectionInfo* info) {
     extern void __pthread_set_self(void*);
-    __pthread_set_self((void*)info->systemStack);
+    __pthread_set_self((void*)info->redzone);
     
     pthread_attr_t attr;
     pthread_attr_init(&attr);

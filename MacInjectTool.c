@@ -4,7 +4,7 @@
  License: http://opensource.org/licenses/mit
  */
 
-#include "Internals.h"
+#include "MacInject.h"
 #include <ctype.h>
 
 #define stringArgumentCase(name, result) \
@@ -23,7 +23,6 @@ static bool checkStrIsUInt(const char* str) {
 }
 
 int main(int argc, const char* argv[]) {
-    bool syncInMainEventLoop = false;
     const char *payloadPath = NULL, *payloadEntry = "init", *targetName = NULL;
     
     // Interpret arguments
@@ -36,14 +35,10 @@ int main(int argc, const char* argv[]) {
                     fprintf(stderr, "-p [path] : path to the payload (mandatory)\n");
                     fprintf(stderr, "-e [symbol] : payload entry symbol (default is \"init\")\n");
                     fprintf(stderr, "-t [path/pid] : target name or pid (mandatory)\n");
-                    fprintf(stderr, "-s : Synchronize with targets MainEventLoop (optional)\n");
                 return 0;
                 stringArgumentCase('p', payloadPath)
                 stringArgumentCase('e', payloadEntry)
                 stringArgumentCase('t', targetName)
-                case 's':
-                    syncInMainEventLoop = true;
-                continue;
             }
         fprintf(stderr, "Could not interpret argument %s\n", argv[i]);
         return 1;
@@ -85,7 +80,7 @@ int main(int argc, const char* argv[]) {
     
     // Do the acutal work
     const char* injectionPath = getResourcePathRelativeTo(argv[0], "MacInjection.image");
-    injectPayloadIntoTarget(injectionPath, payloadPath, payloadEntry, target, syncInMainEventLoop);
+    injectPayloadIntoTarget(injectionPath, payloadPath, payloadEntry, target);
     free((void*)injectionPath);
     
     printf("DONE\n");

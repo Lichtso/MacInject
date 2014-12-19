@@ -7,23 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		11AE37411A216842002A7178 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11AE37401A216842002A7178 /* Info.plist */; };
-		11AE37421A216862002A7178 /* MacInject.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CD27B81A1F905E00A4EE81 /* MacInject.c */; };
-		11AE37431A21686B002A7178 /* MacInject.h in Headers */ = {isa = PBXBuildFile; fileRef = 11CD27B91A1F905E00A4EE81 /* MacInject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		11AE37461A216885002A7178 /* MacInjection.image in Resources */ = {isa = PBXBuildFile; fileRef = 11CD27AE1A1F901B00A4EE81 /* MacInjection.image */; };
+		11B1BDF91A43378400E87A24 /* MacInject.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CD27B81A1F905E00A4EE81 /* MacInject.c */; };
+		11B1BDFA1A43379500E87A24 /* libMacInject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11B1BDF51A43377A00E87A24 /* libMacInject.a */; };
+		11B1BE031A4337C300E87A24 /* MacHooking.c in Sources */ = {isa = PBXBuildFile; fileRef = 11B1BDD11A4334D600E87A24 /* MacHooking.c */; };
 		11CD27A91A1F8FE900A4EE81 /* MacInjectTool.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CD27A81A1F8FE900A4EE81 /* MacInjectTool.c */; };
-		11CD27BA1A1F905E00A4EE81 /* MacInject.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CD27B81A1F905E00A4EE81 /* MacInject.c */; };
 		11CD27BC1A1F908C00A4EE81 /* MacInjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CD27BB1A1F908C00A4EE81 /* MacInjection.m */; };
+		11E0AC441A4339910070270E /* libMacHooking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11B1BDFF1A4337B200E87A24 /* libMacHooking.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		11AE37441A21687A002A7178 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 11CD27961A1F8FA900A4EE81 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 11CD27AD1A1F901B00A4EE81;
-			remoteInfo = Injection;
-		};
 		11CD27B61A1F904800A4EE81 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 11CD27961A1F8FA900A4EE81 /* Project object */;
@@ -46,9 +38,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		11AE37241A216349002A7178 /* Internals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Internals.h; sourceTree = SOURCE_ROOT; };
-		11AE372A1A216811002A7178 /* MacInject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MacInject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		11AE37401A216842002A7178 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
+		11B1BDD11A4334D600E87A24 /* MacHooking.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = MacHooking.c; sourceTree = SOURCE_ROOT; };
+		11B1BDD21A4334D600E87A24 /* MacHooking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacHooking.h; sourceTree = SOURCE_ROOT; };
+		11B1BDF51A43377A00E87A24 /* libMacInject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMacInject.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		11B1BDFF1A4337B200E87A24 /* libMacHooking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMacHooking.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		11CD279E1A1F8FA900A4EE81 /* MacInjectTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MacInjectTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		11CD27A81A1F8FE900A4EE81 /* MacInjectTool.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MacInjectTool.c; sourceTree = SOURCE_ROOT; };
 		11CD27AE1A1F901B00A4EE81 /* MacInjection.image */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = MacInjection.image; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,7 +51,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		11AE37261A216811002A7178 /* Frameworks */ = {
+		11B1BDF21A43377A00E87A24 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11B1BDFC1A4337B200E87A24 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -69,6 +69,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11B1BDFA1A43379500E87A24 /* libMacInject.a in Frameworks */,
+				11E0AC441A4339910070270E /* libMacHooking.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,7 +97,8 @@
 			children = (
 				11CD279E1A1F8FA900A4EE81 /* MacInjectTool */,
 				11CD27AE1A1F901B00A4EE81 /* MacInjection.image */,
-				11AE372A1A216811002A7178 /* MacInject.framework */,
+				11B1BDF51A43377A00E87A24 /* libMacInject.a */,
+				11B1BDFF1A4337B200E87A24 /* libMacHooking.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,12 +106,12 @@
 		11CD27A01A1F8FA900A4EE81 /* MacInject */ = {
 			isa = PBXGroup;
 			children = (
-				11AE37241A216349002A7178 /* Internals.h */,
 				11CD27B91A1F905E00A4EE81 /* MacInject.h */,
-				11CD27BB1A1F908C00A4EE81 /* MacInjection.m */,
 				11CD27B81A1F905E00A4EE81 /* MacInject.c */,
+				11CD27BB1A1F908C00A4EE81 /* MacInjection.m */,
 				11CD27A81A1F8FE900A4EE81 /* MacInjectTool.c */,
-				11AE37401A216842002A7178 /* Info.plist */,
+				11B1BDD21A4334D600E87A24 /* MacHooking.h */,
+				11B1BDD11A4334D600E87A24 /* MacHooking.c */,
 			);
 			path = MacInject;
 			sourceTree = "<group>";
@@ -116,11 +119,17 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		11AE37271A216811002A7178 /* Headers */ = {
+		11B1BDF31A43377A00E87A24 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11AE37431A21686B002A7178 /* MacInject.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11B1BDFD1A4337B200E87A24 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,32 +143,47 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		11AE37291A216811002A7178 /* MacInject */ = {
+		11B1BDF41A43377A00E87A24 /* MacInject */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 11AE373A1A216811002A7178 /* Build configuration list for PBXNativeTarget "MacInject" */;
+			buildConfigurationList = 11B1BDF61A43377B00E87A24 /* Build configuration list for PBXNativeTarget "MacInject" */;
 			buildPhases = (
-				11AE37251A216811002A7178 /* Sources */,
-				11AE37261A216811002A7178 /* Frameworks */,
-				11AE37271A216811002A7178 /* Headers */,
-				11AE37281A216811002A7178 /* Resources */,
+				11B1BDF11A43377A00E87A24 /* Sources */,
+				11B1BDF21A43377A00E87A24 /* Frameworks */,
+				11B1BDF31A43377A00E87A24 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				11AE37451A21687A002A7178 /* PBXTargetDependency */,
 			);
 			name = MacInject;
-			productName = Framework;
-			productReference = 11AE372A1A216811002A7178 /* MacInject.framework */;
-			productType = "com.apple.product-type.framework";
+			productName = MacInject;
+			productReference = 11B1BDF51A43377A00E87A24 /* libMacInject.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		11B1BDFE1A4337B200E87A24 /* MacHooking */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11B1BE001A4337B200E87A24 /* Build configuration list for PBXNativeTarget "MacHooking" */;
+			buildPhases = (
+				11B1BDFB1A4337B200E87A24 /* Sources */,
+				11B1BDFC1A4337B200E87A24 /* Frameworks */,
+				11B1BDFD1A4337B200E87A24 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacHooking;
+			productName = MacHooking;
+			productReference = 11B1BDFF1A4337B200E87A24 /* libMacHooking.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 		11CD279D1A1F8FA900A4EE81 /* MacInjectTool */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 11CD27A51A1F8FA900A4EE81 /* Build configuration list for PBXNativeTarget "MacInjectTool" */;
 			buildPhases = (
 				11CD279A1A1F8FA900A4EE81 /* Sources */,
-				11CD279B1A1F8FA900A4EE81 /* Frameworks */,
 				11CD279C1A1F8FA900A4EE81 /* CopyFiles */,
+				11CD279B1A1F8FA900A4EE81 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -197,7 +221,10 @@
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Alexander Meißner";
 				TargetAttributes = {
-					11AE37291A216811002A7178 = {
+					11B1BDF41A43377A00E87A24 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					11B1BDFE1A4337B200E87A24 = {
 						CreatedOnToolsVersion = 6.0;
 					};
 					11CD279D1A1F8FA900A4EE81 = {
@@ -220,31 +247,28 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				11B1BDFE1A4337B200E87A24 /* MacHooking */,
+				11B1BDF41A43377A00E87A24 /* MacInject */,
 				11CD27AD1A1F901B00A4EE81 /* MacInjection */,
 				11CD279D1A1F8FA900A4EE81 /* MacInjectTool */,
-				11AE37291A216811002A7178 /* MacInject */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		11AE37281A216811002A7178 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				11AE37411A216842002A7178 /* Info.plist in Resources */,
-				11AE37461A216885002A7178 /* MacInjection.image in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		11AE37251A216811002A7178 /* Sources */ = {
+		11B1BDF11A43377A00E87A24 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11AE37421A216862002A7178 /* MacInject.c in Sources */,
+				11B1BDF91A43378400E87A24 /* MacInject.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11B1BDFB1A4337B200E87A24 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11B1BE031A4337C300E87A24 /* MacHooking.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,7 +276,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11CD27BA1A1F905E00A4EE81 /* MacInject.c in Sources */,
 				11CD27A91A1F8FE900A4EE81 /* MacInjectTool.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,11 +291,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		11AE37451A21687A002A7178 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 11CD27AD1A1F901B00A4EE81 /* MacInjection */;
-			targetProxy = 11AE37441A21687A002A7178 /* PBXContainerItemProxy */;
-		};
 		11CD27B71A1F904800A4EE81 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 11CD27AD1A1F901B00A4EE81 /* MacInjection */;
@@ -281,47 +299,43 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		11AE373B1A216811002A7178 /* Debug */ = {
+		11B1BDF71A43377B00E87A24 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
+				EXECUTABLE_PREFIX = lib;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		11AE373C1A216811002A7178 /* Release */ = {
+		11B1BDF81A43377B00E87A24 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		11B1BE011A4337B200E87A24 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		11B1BE021A4337B200E87A24 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -344,6 +358,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_CW_ASM_SYNTAX = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -386,6 +401,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_CW_ASM_SYNTAX = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -442,11 +458,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		11AE373A1A216811002A7178 /* Build configuration list for PBXNativeTarget "MacInject" */ = {
+		11B1BDF61A43377B00E87A24 /* Build configuration list for PBXNativeTarget "MacInject" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				11AE373B1A216811002A7178 /* Debug */,
-				11AE373C1A216811002A7178 /* Release */,
+				11B1BDF71A43377B00E87A24 /* Debug */,
+				11B1BDF81A43377B00E87A24 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		11B1BE001A4337B200E87A24 /* Build configuration list for PBXNativeTarget "MacHooking" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11B1BE011A4337B200E87A24 /* Debug */,
+				11B1BE021A4337B200E87A24 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
